@@ -1,71 +1,53 @@
+import java.awt.*;
+import javax.swing.*;
 import java.util.Scanner;
-/**Implements a game of nim, person vs. computer.
- * The game starts with a number of elements chosen
- * by the person.  The computer takes 1 or 2 elements.
- * Then the person takes 1 or 2 elements.  The game
- * continues until there are no elements left.  The
- * play who takes the last turn wins.
- * @author Jam Jenkins
- */
-public class NimProject
-{
+import java.awt.event.*;
+import javax.swing.JOptionPane;
 
-    /**gets the computer's move, 1 or 2.  Currently
-     * this method gets a random number.  Your job
-     * is to make the computer choose such that it
-     * wins every time it is possible.  First, solve
-     * with recursion.  After successfully completing
-     * this, run the program a few times to see if you
-     * can recognize the pattern the computer is taking.
-     * Then see if you can get the computer to choose 
-     * its move without looping or recursion.
-     * @param left
-     * @return
-     */
-    public int getComputerMove(int left)
+public class NimProject2 {
+
+	 public int getComputerMove(int left)
+	    {
+	        return (int)(Math.random()*2)+1;
+	    }
+	
+	public void play(){
+    String fn = JOptionPane.showInputDialog("Enter Number of Elements to Start");
+	
+	int left = Integer.parseInt(fn);
+    while(left > 0)
+    	
     {
-        return (int)(Math.random()*2)+1;
-    }
-    
-    /**
-     * plays the game of nim, computer versus person
-     */
-    public void play()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of elements to start.");
-        int left = sc.nextInt();
-        while(left>0)
+        int computer = getComputerMove(left);
+        String f = JOptionPane.showInputDialog("Computer takes "+computer);
+         left -= computer ;
+        String b = JOptionPane.showInputDialog("Now there are "+left+" left.");
+        if(left<=0)
         {
-            int computer=getComputerMove(left);
-            System.out.println("Computer takes "+computer);
-            left-=computer;
-            System.out.println("Now there are "+left+" left.");
-            if(left<=0)
-            {
-                System.out.println("Computer wins!");
-                return;
-            }
-            System.out.println("What's your move? (1 or 2)");
-            int person=sc.nextInt();
-            while(person!=1 && person!=2)
-            {
-                System.out.println(person+" not allowed, choose 1 or 2.");
-                person=sc.nextInt();
-            }
-            left-=person;
-            System.out.println("Now there are "+left+" left.");
-            if(left<=0)
-            {
-                System.out.println("You win!");
-                return;
-            }
+        	String c = JOptionPane.showInputDialog("Computer wins!");
+            return;
+        }
+        String bd = JOptionPane.showInputDialog("What's your move? (1 or 2)");
+        int person=Integer.parseInt(bd);
+        while(person!=1 && person!=2)
+        {
+        	String e = JOptionPane.showInputDialog(person+" not allowed, choose 1 or 2.");
+            person=Integer.parseInt(e);
+        }
+         left-=person;
+        String fx = JOptionPane.showInputDialog("Now there are "+left+" left.");
+        if(left<=0)
+        {
+        	String g = JOptionPane.showInputDialog("You win!");
+            return;
+       
         }
     }
-    
-    public static void main(String[] args)
-    {
-        NimProject nim = new NimProject();
-        nim.play();
-    }
+}
+	
+public static void main(String args[])		{
+	
+	NimProject2 nim = new NimProject2();
+    nim.play();
+	}
 }
