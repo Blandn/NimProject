@@ -3,31 +3,45 @@ import javax.swing.*;
 import java.util.Scanner;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
+import java.util.Random;
+
 
 public class NimProject2 {
 
-	 public int getComputerMove(int left)
+	 public int getComputerMove2(int left)
 	    {
-	        return (int)(Math.random()*2)+1;
+		 Random rand = new Random();
+		 double randInt = Math.random()* left/2 +1 ;
+		 return (int) randInt;
 	    }
+	 public int getComputerMove1(int left)
+	 {
+		 return (int)((left / 2));
+	 }
 	
 	public void play(){
-    String fn = JOptionPane.showInputDialog("Enter Number of Elements to Start");
+		String diff = JOptionPane.showInputDialog("Which Difficulty do you want to play? Hard(1) or Easy (2)");
+		int difficulty = Integer.parseInt(diff);
+	
+	if(difficulty == 2) {
+	String fn = JOptionPane.showInputDialog("Enter Number of Elements to Start");
 	
 	int left = Integer.parseInt(fn);
     while(left > 0)
     	
     {
-        int computer = getComputerMove(left);
-        String f = JOptionPane.showInputDialog("Computer takes "+computer);
-         left -= computer ;
-        String b = JOptionPane.showInputDialog("Now there are "+left+" left.");
+        int computer = getComputerMove1(left);
+        left -= computer ;
+        String f = JOptionPane.showInputDialog("Computer takes "+computer+ ". Now there are "+left+" left.");
+        
+        
         if(left<=0)
         {
         	String c = JOptionPane.showInputDialog("Computer wins!");
             return;
         }
-        String bd = JOptionPane.showInputDialog("What's your move? (1 or 2)");
+        String bd = JOptionPane.showInputDialog("What's your move?");
+        
         int person=Integer.parseInt(bd);
         while(person!=1 && person!=2)
         {
@@ -36,16 +50,60 @@ public class NimProject2 {
         }
          left-=person;
         String fx = JOptionPane.showInputDialog("Now there are "+left+" left.");
+        
         if(left<=0)
         {
         	String g = JOptionPane.showInputDialog("You win!");
             return;
-       
+        	}
         }
     }
+	if(difficulty == 1) {
+		String fn = JOptionPane.showInputDialog("Enter Number of Elements to Start");
+		
+		int left = Integer.parseInt(fn);
+	    while(left > 0)
+	    	
+	    {
+	        int computer = getComputerMove1(left);
+	        left -= computer ;
+	        String f = JOptionPane.showInputDialog("Computer takes "+computer+ ". Now there are "+left+" left.");
+	        
+	        
+	        if(left<=0)
+	        {
+	        	String c = JOptionPane.showInputDialog("Computer wins!");
+	            return;
+	        }
+	        String bd = JOptionPane.showInputDialog("What's your move?");
+	        int person=Integer.parseInt(bd);
+	        while(1 < person && person > left/2 )
+	        {
+	        	String e = JOptionPane.showInputDialog(person+" not allowed, choose 1 or 2.");
+	            person=Integer.parseInt(e);
+	        }
+	         left-=person;
+	        String fx = JOptionPane.showInputDialog("Now there are "+left+" left.");
+	        if(left<=0)
+	        {
+	        	String g = JOptionPane.showInputDialog("You win!");
+	            return;
+	        	}
+	        }
+	    }
 }
 	
 public static void main(String args[])		{
+	
+	/* String fn = JOptionPane.showInputDialog("Enter Number of Elements to Start");
+	String sn = JOptionPane.showInputDialog("Enter a second number");
+	
+	int num1 = Integer.parseInt(fn);
+	int num2 = Integer.parseInt(sn);
+	
+	int sum = num1 + num2; 
+	
+	JOptionPane.showMessageDialog(null, "The answer is " + sum, "Nim", JOptionPane.PLAIN_MESSAGE); */
 	
 	NimProject2 nim = new NimProject2();
     nim.play();
